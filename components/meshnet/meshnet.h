@@ -5,6 +5,8 @@
 #include <string>
 #include "esphome/core/component.h"
 
+#include <esp_wireguard.h>
+
 
 namespace esphome {
 namespace meshnet {
@@ -21,10 +23,18 @@ class Meshnet : public PollingComponent {
     void set_auth_token(const std::string &auth_token);
     void set_hardware_id(const std::string &hardware_id);
 
+  private:
+    void start_meshnet_();
+    void stop_meshnet_();
+
   protected:
     std::string private_key_;
     std::string auth_token_;
     std::string hardware_id_;
+
+    wireguard_ctx_t ctx = {0};
+    wireguard_config_t wg_config;
+    bool meshnet_enabled = false;
 };
 
 /// Strip most part of the key only for secure printing

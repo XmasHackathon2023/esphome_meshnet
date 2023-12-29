@@ -1,0 +1,49 @@
+esphome:
+  name: rytelio-esp-meshnet
+  libraries:
+    - esp-wg=file:///esp-wireguard
+
+esp32:
+  board: esp32cam
+  framework:
+    type: arduino
+
+external_components:
+  - source:
+      type: local
+      path: components
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  password: "<REDACTED>"
+
+ota:
+  password: "<REDACTED>"
+
+wifi:
+  ssid: "<REDACTED>"
+  password: "<REDACTED>"
+
+web_server:
+  port: 80
+
+output:
+  - platform: gpio
+    pin: GPIO4
+    id: led
+
+light:
+  - platform: binary
+    output: led
+    name: "LED"
+
+captive_portal:
+    
+
+meshnet:
+  private_key: "<REDACTED>"
+  authorization_token: "<REDACTED>"
+  hardware_id: "rytelio-esp-meshnet"

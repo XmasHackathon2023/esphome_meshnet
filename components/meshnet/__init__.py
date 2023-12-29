@@ -53,5 +53,12 @@ async def to_code(config):
     cg.add(var.set_auth_token(config[CONF_AUTH_TOKEN]))
     cg.add(var.set_hardware_id(config[CONF_HARDWARE_ID]))
 
+    cg.add_build_flag(f"-DCONFIG_WIREGUARD_MAX_SRC_IPS=2")
+    cg.add_build_flag(f"-DCONFIG_WIREGUARD_MAX_PEERS=2")
+    cg.add_build_flag(f"-DCONFIG_MAX_INITIATIONS_PER_SECOND=1")
+    cg.add_build_flag(f"-DCONFIG_WIREGUARD_ESP_NETIF")
+    cg.add_build_flag(f"-DCONFIG_WIREGUARD_x25519_IMPLEMENTATION_DEFAULT")
+    cg.add_library("esp-wg", None)
+
     await cg.register_component(var, config)
 
